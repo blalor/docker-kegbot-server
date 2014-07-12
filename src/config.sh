@@ -44,7 +44,7 @@ mv local_settings.py /etc/kegbot/
 sed -i \
     -e 's#daemonize yes#daemonize no#' \
     -e 's#^dir /var/lib/redis/#dir /var/lib/kegbot/redis/#' \
-    -e 's#/var/log/redis/redis.log#/var/log/kegbot/redis.log#'
+    -e 's#/var/log/redis/redis.log#/var/log/kegbot/redis.log#' \
     /etc/redis.conf
 
 ## cleanup
