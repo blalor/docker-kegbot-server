@@ -21,8 +21,8 @@ If using email:
 requires volume, which does not exist in container.  written to by `nobody` user
 in container, id `99`.  set perms appropriately.
 
-    mkdir -p /tmp/kegbot/{static,media,redis}
-    chown -R nobody:nobody /tmp/kegbot
+    mkdir -p /path/to/data/dir/{static,media,redis}
+    chown -R nobody:nobody /path/to/data/dir
 
 create mysql database, then:
 
@@ -32,9 +32,9 @@ create mysql database, then:
         -e KEGBOT_DB_USER=root \
         -e KEGBOT_DB_PASSWORD= \
         -e KEGBOT_DEBUG=true \
-        -v /tmp/kegbot:/var/lib/kegbot \
+        -v /path/to/data/dir:/var/lib/kegbot \
         -u nobody \
-        blalor/kegbot \
+        blalor/kegbot-server \
         /usr/local/bin/kegbot_wrapper.sh syncdb --all --noinput -v 0
 
     docker run -i -t \
@@ -43,9 +43,9 @@ create mysql database, then:
         -e KEGBOT_DB_USER=root \
         -e KEGBOT_DB_PASSWORD= \
         -e KEGBOT_DEBUG=true \
-        -v /tmp/kegbot:/var/lib/kegbot \
+        -v /path/to/data/dir:/var/lib/kegbot \
         -u nobody \
-        blalor/kegbot \
+        blalor/kegbot-server \
         /usr/local/bin/kegbot_wrapper.sh migrate --all --fake --noinput -v 0
 
     docker run -i -t \
@@ -54,12 +54,14 @@ create mysql database, then:
         -e KEGBOT_DB_USER=root \
         -e KEGBOT_DB_PASSWORD= \
         -e KEGBOT_DEBUG=true \
-        -v /tmp/kegbot:/var/lib/kegbot \
+        -v /path/to/data/dir:/var/lib/kegbot \
         -u nobody \
-        blalor/kegbot \
+        blalor/kegbot-server \
         /usr/local/bin/kegbot_wrapper.sh collectstatic --noinput
 
-complete setup wizard.  start kegbot container:
+complete setup wizard.  kegbot doesn't appear to honor the port when proxied
+through nginx, so you'll need to run this thing on port 80.  start kegbot
+container:
 
     docker run -i -t \
         -e KEGBOT_DB_NAME=kegbot \
@@ -67,8 +69,8 @@ complete setup wizard.  start kegbot container:
         -e KEGBOT_DB_USER=root \
         -e KEGBOT_DB_PASSWORD= \
         -e KEGBOT_DEBUG=true \
-        -v /tmp/kegbot:/var/lib/kegbot \
-        -p 8000:80 \
-        blalor/kegbot
+        -v /path/to/data/dir:/var/lib/kegbot \
+        -p 80:80 \
+        blalor/kegbot-server
 
-then visit `http://localhost:8000/`
+then visit `http://localhost/`
