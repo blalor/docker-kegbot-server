@@ -45,6 +45,9 @@ KEGBOT_ROOT = "/var/lib/kegbot"
 MEDIA_ROOT  = KEGBOT_ROOT + "/media"
 STATIC_ROOT = KEGBOT_ROOT + "/static"
 
+MEDIA_URL  = "/media/"
+STATIC_URL = "/static/"
+
 SECRET_KEY = "d7wz4m5qeomw8oh6-!y-1vf+6)0*!zcc53$f2c8tlmulgg!t^$"
 
 if "KEGBOT_EMAIL_HOST" in os.environ:
