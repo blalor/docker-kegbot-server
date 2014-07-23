@@ -9,7 +9,7 @@ mv nginx.repo /etc/yum.repos.d/
 ## kegbot requires python >= 2.7
 ## it also requires a LOCAL redis install. (╯°□°）╯︵ ┻━┻ 
 ##   https://github.com/Kegbot/kegbot-server/issues/254
-yum install -y centos-release-SCL mysql-devel gcc git nginx redis
+yum install -y centos-release-SCL mysql-devel gcc git nginx redis  libjpeg-devel
 yum install --disablerepo=* --enablerepo=scl -y python27-python-devel python27-python-setuptools
 
 mv nginx.conf /etc/nginx/
